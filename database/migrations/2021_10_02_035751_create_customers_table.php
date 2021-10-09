@@ -17,6 +17,7 @@ class CreateCustomersTable extends Migration
             $table->id();
             $table->string('name');
             $table->date('subscription_end_date');
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }
