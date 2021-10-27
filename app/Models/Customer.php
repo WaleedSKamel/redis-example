@@ -12,6 +12,6 @@ class Customer extends Model
     protected $table = 'customers';
 
     protected $fillable = [
-        'name', 'subscription_end_date','status'
+        'name', 'email', 'subscription_end_date', 'status'
     ];
 }

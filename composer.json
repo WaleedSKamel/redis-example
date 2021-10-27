@@ -11,7 +11,8 @@
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "rap2hpoutre/laravel-log-viewer": "^1.7"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -31,7 +32,10 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "app/Helpers/Utilities.php"
+        ]
     },
     "scripts": {
         "post-autoload-dump": [

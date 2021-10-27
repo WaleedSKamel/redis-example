@@ -20,7 +20,7 @@ class SendSubscriptionExpiryMessageJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($customer,$expire_date)
+    public function __construct($customer, $expire_date)
     {
         $this->customer = $customer;
         $this->expire_date = $expire_date;
@@ -34,5 +34,9 @@ class SendSubscriptionExpiryMessageJob implements ShouldQueue
     public function handle()
     {
         // Todo send email for each expire user
+        //info('running job');
+        //dd($this->customer->toArray());
+        sendmail('emails.subscription_expiration', $this->customer->email, 'Expiration Subscription', ['data' => $this->customer]);
+
     }
 }

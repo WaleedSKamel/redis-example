@@ -40,14 +40,13 @@ class SubscriptionExpiryNotification extends Command
      */
     public function handle()
     {
-        $customers = Customer::query()->where('subscription_end_date', '<', Carbon::now()->format('Y-m-d'))
+        $customers = Customer::query()->where('subscription_end_date', '<', now())
             ->get();
         foreach ($customers as $customer) {
             $expired_date = Carbon::createFromFormat('Y-m-d', $customer->subscription_end_date)
                 ->toDateString();
             dispatch(new SendSubscriptionExpiryMessageJob($customer,$expired_date))
-            ->onQueue('Waleed');
-
+            /*->onQueue('Waleed')*/;
         }
 
     }

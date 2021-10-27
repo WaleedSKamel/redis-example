@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Customer;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CustomerFactory extends Factory
@@ -13,8 +14,9 @@ class CustomerFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'subscription_end_date' => $this->faker->date,
-            'status' => $this->faker->randomElement([0,1])
+            'email' => $this->faker->email(),
+            'subscription_end_date' => Carbon::now(),
+            'status' => $this->faker->randomElement([0, 1])
         ];
     }
 
