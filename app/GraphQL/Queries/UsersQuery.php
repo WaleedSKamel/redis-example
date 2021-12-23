@@ -9,15 +9,15 @@ use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
 
-class UserQuery extends Query
+class UsersQuery extends Query
 {
     protected $attributes = [
-        'name' => 'user',
+        'name' => 'users',
     ];
 
     public function type(): Type
     {
-        return GraphQL::type('User');
+        return Type::listOf(Type::nonNull(GraphQL::type('User')));
     }
 
     public function args(): array
@@ -25,7 +25,7 @@ class UserQuery extends Query
         return [
             'id' => [
                 'name' => 'id',
-                'type' => Type::string(),
+                'type' => Type::int(),
             ],
             'name' => [
                 'name' => 'email',
@@ -40,13 +40,27 @@ class UserQuery extends Query
 
     public function resolve($root, array $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields)
     {
+        /** @var SelectFields $fields */
+
+        $fields = $getSelectFields();
+        $select = $fields->getSelect();
+        $with = $fields->getRelations();
+
+        $users = User::query()->select($select)->with($with);
+
         if (isset($args['id'])) {
-            return User::query()->findOrFail($args['id']);
+            return $users->where('id' ,'=', $args['id'])->get();
         }
 
         if (isset($args['email'])) {
-            return User::query()->where('email', '=',$args['email'])->first();
+            return $users->where('email', '=',$args['email'])->get();
         }
+
+        if (isset($args['name'])) {
+            return $users->where('email', 'LIKE',"%{$args['name']}%")->get();
+        }
+
+        return $users->orderByDesc('id')->get();
     }
 
 }

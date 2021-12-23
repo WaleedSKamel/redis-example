@@ -12,6 +12,13 @@ class Book extends Model
     protected $table = 'books';
 
     protected $fillable = [
-        'title', 'year', 'number_of_pages'
+        'title', 'year', 'number_of_pages','user_id'
     ];
+
+    // relation
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id','id');
+    }
 }

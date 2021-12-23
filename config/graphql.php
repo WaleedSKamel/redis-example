@@ -75,6 +75,11 @@ return [
         'default' => [
             'query' => [
                 // ExampleQuery::class,
+                'book' => \App\GraphQL\Queries\BookQuery::class,
+                'books' => \App\GraphQL\Queries\BooksQuery::class,
+
+                'user' => \App\GraphQL\Queries\UserQuery::class,
+                'users' => \App\GraphQL\Queries\UsersQuery::class,
             ],
             'mutation' => [
                 // ExampleMutation::class,
@@ -105,6 +110,9 @@ return [
     // ]
     //
     'types' => [
+        \App\GraphQL\Types\BookType::class,
+        \App\GraphQL\Types\UserType::class,
+
         // ExampleType::class,
         // ExampleRelationType::class,
         // \Rebing\GraphQL\Support\UploadType::class,
