@@ -82,6 +82,13 @@ return [
                 'users' => \App\GraphQL\Queries\UsersQuery::class,
             ],
             'mutation' => [
+                'createBook' => \App\GraphQL\Mutations\CreateBookMutation::class,
+                'updateBook' => \App\GraphQL\Mutations\UpdateBookMutation::class,
+                'deleteBook' => \App\GraphQL\Mutations\DeleteBookMutation::class,
+
+                'createUser' => \App\GraphQL\Mutations\CreateUserMutation::class,
+                'updateUser' => \App\GraphQL\Mutations\UpdateUserMutation::class,
+                'deleteUser' => \App\GraphQL\Mutations\DeleteUserMutation::class,
                 // ExampleMutation::class,
             ],
             // The types only available in this schema
