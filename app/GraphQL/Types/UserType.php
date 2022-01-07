@@ -50,7 +50,10 @@ class UserType extends GraphQLType
             'books' => [
                 'type' => Type::listOf(GraphQL::type('Book')),
                 'description' => 'The relationship of books',
-            ]
+            ],
+            /*'episode_type' => [
+                'type' => GraphQL::type('UserTypeEnum')
+            ]*/
         ];
     }
 

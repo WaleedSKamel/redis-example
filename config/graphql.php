@@ -93,6 +93,7 @@ return [
             ],
             // The types only available in this schema
             'types' => [
+                \App\GraphQL\Enums\UserTypeEnum::class,
                 // ExampleType::class,
             ],
 

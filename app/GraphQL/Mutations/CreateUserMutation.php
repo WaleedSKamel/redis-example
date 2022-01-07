@@ -7,6 +7,7 @@ use App\Models\User;
 use Closure;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\ResolveInfo;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -18,6 +19,12 @@ class CreateUserMutation extends Mutation
     protected $attributes = [
         'name' => 'createUser'
     ];
+
+    public function authorize($root, array $args, $ctx, ResolveInfo $resolveInfo = null, Closure $getSelectFields = null): bool
+    {
+        // true, if logged in
+        return  true; //Auth::guest();
+    }
 
     public function type(): Type
     {
@@ -58,5 +65,17 @@ class CreateUserMutation extends Mutation
             DB::rollBack();
             return $exception->getMessage();
         }
+    }
+
+    public function validationErrorMessages(array $args = []): array
+    {
+        return [
+            'name.required' => 'Please enter your full name',
+            'name.string' => 'Your name must be a valid string',
+            'email.required' => 'Please enter your email address',
+            'email.email' => 'Please enter a valid email address',
+            'email.exists' => 'Sorry, this email address is already in use',
+            'email.unique' => 'Sorry, this email address is already in use',
+        ];
     }
 }
